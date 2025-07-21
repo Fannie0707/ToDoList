@@ -18,7 +18,7 @@ public class SupabaseService {
 
     public void fetchTasks() {
         Request request = new Request.Builder()
-                .url(SUPABASE_URL + "/rest/v1/tache")
+                .url(SUPABASE_URL + "/rest/v1/Utilisateurs")
                 .addHeader("apikey", API_KEY)
                 .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Accept", "application/json")

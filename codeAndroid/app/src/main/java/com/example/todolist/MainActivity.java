@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.todolist.back.SupabaseService;
+
 public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +17,8 @@ public class MainActivity extends Activity {
 
         TextView btnIncription = findViewById(R.id.btnIncription);
         TextView btnConnexion = findViewById(R.id.btnConnexion);
+        SupabaseService supa = new SupabaseService();
+        supa.fetchTasks();
 
         btnIncription.setOnClickListener(new View.OnClickListener() {
              @Override
