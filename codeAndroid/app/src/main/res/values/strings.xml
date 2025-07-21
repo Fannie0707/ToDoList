@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ToDoList</string>
+    <string name="creneau1">8h-10h</string>
+    <string name="creneau2">10h-12h</string>
+    <string name="creneau3">14h-16h</string>
+    <string name="creneau4">16h-18h</string>
+    <string name="button_Soumettre">Soumettre</string>
 </resources>
