@@ -4,9 +4,7 @@ import com.example.todolist.back.tables.Categories;
 import com.example.todolist.back.tables.Taches;
 import com.example.todolist.back.tables.Utilisateurs;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 import java.util.Calendar;
 
@@ -18,18 +16,6 @@ public class BDDCommunication {
     public boolean connected = false;
 
     public BDDCommunication(){
-        this.connectionBDD();
-    }
-    private void connectionBDD(){
-        try  {
-            Connection conn = DriverManager.getConnection(url, utilisateur, motDePasse);
-            // Connexion à la base de données
-            System.out.println("connection réussie !");
-            connected = true;
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private boolean insertiondDonne(Entite entite){
