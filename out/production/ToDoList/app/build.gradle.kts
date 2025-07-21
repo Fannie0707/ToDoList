@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -36,8 +35,6 @@ dependencies {
 
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.okhttp3.okhttp)
-    implementation(libs.postgresql)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
