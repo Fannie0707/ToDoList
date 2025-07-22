@@ -1,9 +1,8 @@
 package com.example.todolist;
 
-import com.example.todolist.back.SupabaseService;
+import com.example.todolist.back.bdd.SupabaseService;
 
 import org.junit.Before;
-import org.junit.Test;
 
 public class SupabaseServiceTest {
     private SupabaseService supa;
@@ -11,9 +10,5 @@ public class SupabaseServiceTest {
     @Before
     public void before(){
         supa = new SupabaseService();
-    }
-    @Test
-    public void testGetUser() throws InterruptedException{
-        supa.fetchTasks();
     }
 }

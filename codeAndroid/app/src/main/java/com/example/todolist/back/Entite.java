@@ -1,5 +1,12 @@
 package com.example.todolist.back;
 
+import com.example.todolist.back.tables.Utilisateurs;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+
 public abstract class Entite {
     public String nomTable;
     public String[] valeurs;
@@ -28,5 +35,4 @@ public abstract class Entite {
         }
         return "";
     }
-
 }
