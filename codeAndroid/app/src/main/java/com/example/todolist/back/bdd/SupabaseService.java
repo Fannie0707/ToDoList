@@ -45,7 +45,7 @@ public class SupabaseService {
         });
     }
 
-    public void fetchData(String nomTable, Parameters[] parametres, SupabaseCallback callback) {
+    public void rechercheDonne(String nomTable, Parameters[] parametres, SupabaseCallback callback) {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(SUPABASE_URL + "/rest/v1/"+nomTable).newBuilder();
 
         if (parametres != null){
@@ -91,6 +91,26 @@ public class SupabaseService {
                 .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Prefer", "return=representation")
+                .build();
+        envoieRequete(request, callback);
+    }
+
+    public void supprimerDonne(String nomTable, Parameters[] parametres, SupabaseCallback callback){
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(SUPABASE_URL + "/rest/v1/"+nomTable).newBuilder();
+
+        if (parametres != null){
+            for (Parameters p : parametres) {
+                urlBuilder.addQueryParameter(p.column, p.operator.getValue() + p.value);
+            }
+        }
+
+        HttpUrl url = urlBuilder.build();
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .addHeader("apikey", API_KEY)
+                .addHeader("Authorization", "Bearer " + API_KEY)
+                .addHeader("Accept", "application/json")
                 .build();
         envoieRequete(request, callback);
     }

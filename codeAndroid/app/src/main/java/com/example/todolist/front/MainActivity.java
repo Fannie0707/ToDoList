@@ -8,10 +8,7 @@ import android.widget.TextView;
 
 import com.example.todolist.R;
 import com.example.todolist.back.bdd.Parameters;
-import com.example.todolist.back.bdd.SupabaseCallback;
 import com.example.todolist.back.bdd.SupabaseService;
-import com.example.todolist.back.outils.JsonParser;
-import com.example.todolist.back.tables.Taches;
 import com.example.todolist.back.tables.Utilisateurs;
 
 import java.util.List;
@@ -25,32 +22,8 @@ public class MainActivity extends Activity {
         TextView btnIncription = findViewById(R.id.btnIncription);
         TextView btnConnexion = findViewById(R.id.btnConnexion);
         SupabaseService supa = new SupabaseService();
-        Parameters[] parameters = new Parameters[]{new Parameters("nom","Léo")};
+        Parameters[] parameters = new Parameters[]{new Parameters("nom","TEST")};
         Utilisateurs u = new Utilisateurs(3,"2025-07-21T13:43:52+00:00", "TEST", "TEST");
-        supa.insererDonne(Utilisateurs.nomTable, u, new SupabaseCallback() {
-            @Override
-            public void onSuccess(String json) {
-                supa.fetchData(Utilisateurs.nomTable,null,new SupabaseCallback() {
-                    @Override
-                    public void onSuccess(String json) {
-                        List<Utilisateurs> utilisateurs = JsonParser.parseUtilisateurs(json);
-                        System.out.println(json);
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                });
-            }
-
-            @Override
-            public void onError(Exception e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-
         btnIncription.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
