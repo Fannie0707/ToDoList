@@ -1,12 +1,12 @@
-package com.example.todolist;
+package com.example.todolist.front;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.todolist.R;
 import com.example.todolist.back.bdd.Parameters;
 import com.example.todolist.back.bdd.SupabaseCallback;
 import com.example.todolist.back.bdd.SupabaseService;
@@ -14,7 +14,6 @@ import com.example.todolist.back.outils.JsonParser;
 import com.example.todolist.back.tables.Utilisateurs;
 
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends Activity {
     @Override
