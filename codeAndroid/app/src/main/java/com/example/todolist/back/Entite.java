@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.util.Map;
 
 public abstract class Entite {
     public String nomTable;
@@ -35,4 +36,6 @@ public abstract class Entite {
         }
         return "";
     }
+
+    public abstract Map<String,String> convertionMap();
 }

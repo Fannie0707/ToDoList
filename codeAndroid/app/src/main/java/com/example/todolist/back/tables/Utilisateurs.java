@@ -1,12 +1,9 @@
 package com.example.todolist.back.tables;
 
 import com.example.todolist.back.Entite;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 
-import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utilisateurs extends Entite {
     private int id;
@@ -38,10 +35,18 @@ public class Utilisateurs extends Entite {
         this.nom = nom;
         this.mdp = mdp;
     }
-    public Utilisateurs() {
-    }
+
     public int getId() { return id; }
     public String getCreated_at() { return created_at; }
     public String getNom() { return nom; }
     public String getMdp() { return mdp; }
+
+    @Override
+    public Map<String,String> convertionMap() {
+        Map<String, String> m = new HashMap<>();
+        m.put("created_at", created_at);
+        m.put("nom",nom);
+        m.put("mdp",mdp);
+        return m;
+    }
 }
