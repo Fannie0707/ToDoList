@@ -2,7 +2,15 @@ package com.example.todolist.back.bdd;
 
 
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+
 import com.example.todolist.back.Entite;
+import com.example.todolist.back.tables.Utilisateurs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -113,6 +121,25 @@ public class SupabaseService {
                 .addHeader("Accept", "application/json")
                 .build();
         envoieRequete(request, callback);
+    }
+
+    public SupabaseCallback rechercheUtilisateurs(TextView v){
+        return new SupabaseCallback() {
+            @Override
+                public void onSuccess(String json) {
+                v.setOnClickListener(a->{
+                    Toast.makeText(
+                            v.getContext(),
+                            "Utilisateurs trouvé",
+                            Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println(e.getMessage());
+            }
+        };
     }
 }
 
