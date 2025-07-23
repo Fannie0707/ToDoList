@@ -2,15 +2,12 @@ package com.example.todolist.back.bdd;
 
 
 
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 
 import com.example.todolist.back.Entite;
-import com.example.todolist.back.tables.Utilisateurs;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,10 +38,18 @@ public class SupabaseService {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    String json = response.body().string();
+                    okhttp3.ResponseBody body = response.body();
+                    if (body == null){
+                        callback.onError(new Exception("Body null"));
+                        return;
+                    }
+                    String json = body.string();
+                    if (json.equals("[]")){
+                        callback.onError(new Exception("Empty body"));
+                        return;
+                    }
                     callback.onSuccess(json);
                 } else {
                     callback.onError(new Exception("HTTP error " + response.code()));
@@ -53,11 +58,11 @@ public class SupabaseService {
         });
     }
 
-    public void rechercheDonne(String nomTable, Parameters[] parametres, SupabaseCallback callback) {
+    public void rechercheDonne(String nomTable, Parametre[] parametres, SupabaseCallback callback) {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(SUPABASE_URL + "/rest/v1/"+nomTable).newBuilder();
 
         if (parametres != null){
-            for (Parameters p : parametres) {
+            for (Parametre p : parametres) {
                 urlBuilder.addQueryParameter(p.column, p.operator.getValue() + p.value);
             }
         }
@@ -103,11 +108,11 @@ public class SupabaseService {
         envoieRequete(request, callback);
     }
 
-    public void supprimerDonne(String nomTable, Parameters[] parametres, SupabaseCallback callback){
+    public void supprimerDonne(String nomTable, Parametre[] parametres, SupabaseCallback callback){
         HttpUrl.Builder urlBuilder = HttpUrl.parse(SUPABASE_URL + "/rest/v1/"+nomTable).newBuilder();
 
         if (parametres != null){
-            for (Parameters p : parametres) {
+            for (Parametre p : parametres) {
                 urlBuilder.addQueryParameter(p.column, p.operator.getValue() + p.value);
             }
         }

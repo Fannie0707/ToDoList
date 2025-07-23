@@ -27,6 +27,14 @@
             android:name=".front.Connexion"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".front.Incription"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".front.HomeActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
