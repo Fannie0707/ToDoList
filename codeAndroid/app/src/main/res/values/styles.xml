@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CalendarHeaderStyle">
+        <item name="android:textColor">#E75480</item> <!-- Rose sombre -->
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="CalendarDateStyle">
+        <item name="android:textColor">#E75480</item> <!-- Rose sombre -->
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>
