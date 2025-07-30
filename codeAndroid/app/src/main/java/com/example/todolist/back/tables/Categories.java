@@ -12,9 +12,12 @@ public class Categories extends Entite {
     private String created_at;
     private String nom;
     private String couleur;
-    public Categories(){
-        this.nomTable = "Categories";
-        this.colonne = new String[]{"id","created_at","nom","couleur"};
+    public static final String nomTable = "Categorie";
+    public static final String[] colonne =  new String[]{"id","created_at","nom","couleur"};
+    public Categories( String created_at, String nom, String couleur){
+        this.nom = nom;
+        this.couleur = couleur;
+        this.created_at = created_at;
     }
 
     public int getId() {

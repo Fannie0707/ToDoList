@@ -1,13 +1,9 @@
 package com.example.todolist.front;
 
 import android.os.Bundle;
-import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.applandeo.materialcalendarview.CalendarDay;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.example.todolist.R;
-import com.google.android.material.datepicker.DayViewDecorator;
 
 import java.util.Calendar;
 

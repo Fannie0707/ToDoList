@@ -11,12 +11,25 @@ public class Taches extends Entite {
     private int id;
     private String created_at;
     private String nom;
-    private int parent;
+    private Integer parent;
     private boolean repetition;
     private String statut;
-    public Taches(){
-        this.nomTable = "Taches";
-        this.colonne = new String[]{"id","created_at","nom","parent","repetition","statut"};
+    public final static String nomTable = "Taches";
+    public final static String[] colonne = new String[]{"id","created_at","nom","parent","repetition","statut"};
+    public Taches(boolean repetition, String created_at, String nom, int parent){
+        this.repetition = repetition;
+        this.parent = parent;
+        this.statut = "Pas commencé";
+        this.created_at = created_at;
+        this.nom = nom;
+
+    }
+    public Taches(boolean repetition, String created_at, String nom){
+        this.repetition = repetition;
+        this.parent = null;
+        this.statut = "Pas commencé";
+        this.created_at = created_at;
+        this.nom = nom;
     }
 
     public int getId() {

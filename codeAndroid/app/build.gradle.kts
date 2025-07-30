@@ -38,9 +38,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.okhttp3.okhttp)
-    implementation("com.applandeo:material-calendar-view:1.9.2")
+    implementation(libs.material.calendar.view)
 
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
