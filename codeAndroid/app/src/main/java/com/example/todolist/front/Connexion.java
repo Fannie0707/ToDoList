@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todolist.R;
@@ -19,7 +20,7 @@ public class Connexion extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.connexion);
 
-        Button btn_connexion = findViewById(R.id.btn_confirmation);
+        TextView btn_connexion = findViewById(R.id.btn_confirmation);
         EditText nom = findViewById(R.id.nom_e);
         EditText mdp = findViewById(R.id.mdp_e);
 

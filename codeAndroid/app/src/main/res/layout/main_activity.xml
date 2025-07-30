@@ -33,21 +33,23 @@
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="@string/Inscription"
-            android:textSize="14sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="#0720FA"
             android:layout_marginBottom="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/rounded_button"/>
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/police_playwrite_normal"/>
 
         <TextView
             android:id="@+id/btnConnexion"
+            android:fontFamily="@font/police_playwrite_normal"
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:text="@string/Connexion"
-            android:textSize="14sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="#0720FA"

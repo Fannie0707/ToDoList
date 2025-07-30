@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <!-- Date en haut -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="16dp">
+
+        <!-- Flèche gauche -->
+        <ImageView
+            android:id="@+id/arrowLeft"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_left"
+            android:contentDescription="Flèche gauche"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <!-- Texte de la date -->
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lundi 30 juillet 2025"
+            android:fontFamily="@font/police_playwrite_normal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/arrowLeft"
+            app:layout_constraintEnd_toStartOf="@id/arrowRight"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+        <!-- Flèche droite -->
+        <ImageView
+            android:id="@+id/arrowRight"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_right"
+            android:contentDescription="Flèche droite"
+            android:tint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="UseAppTint" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/dateContainer"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:id="@+id/containerTaches"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="16dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp">
+
+                <!-- Le carré avec fond bleu pastel -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/carreTachesJour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_taches_jour"
+                    android:padding="16dp"
+                    android:layout_marginTop="12dp"> <!-- Pour laisser la place à l’étiquette -->
+
+                    <!-- Exemple de tâche -->
+                    <TextView
+                        android:id="@+id/tache1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✓ Acheter du pain"
+                        android:textColor="#2C3E50"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tache2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☐ Nettoyer la maison"
+                        android:textColor="#2C3E50"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/tache1"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Étiquette superposée au-dessus du carré -->
+                <TextView
+                    android:id="@+id/labelJour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tâches du jour"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:backgroundTint="#F5B7B1"
+                    android:background="@drawable/bg_label_tag"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="10dp" />
+            </FrameLayout>
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"> <!-- Ou la marge que tu souhaites -->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/carreTachesSemaine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_taches_semaine"
+                    android:padding="16dp"
+                    android:layout_marginTop="12dp"> <!-- Pour laisser la place à l’étiquette -->
+
+                    <!-- Tâches ici -->
+                    <TextView
+                        android:id="@+id/tache5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✓ Acheter du pain"
+                        android:textColor="#2C3E50"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tache6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☐ Nettoyer la maison"
+                        android:textColor="#2C3E50"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/tache5"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/labelSemaine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tâches de la semaine"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:background="@drawable/bg_label_tag"
+                    android:backgroundTint="#BB8FCE"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="10dp" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/carreTachesMois"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_taches_mois"
+                    android:padding="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <!-- Tâches -->
+                    <TextView
+                        android:id="@+id/tache7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✓ Acheter du pain"
+                        android:textColor="#2C3E50"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tache8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☐ Nettoyer la maison"
+                        android:textColor="#2C3E50"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/tache7"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/labelMois"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tâches du mois"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:background="@drawable/bg_label_tag"
+                    android:backgroundTint="#85C1E9"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="10dp" />
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/carreTachesAnnee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_taches_annee"
+                    android:padding="16dp"
+                    android:layout_marginTop="12dp">
+
+                    <!-- Exemple de tâche à l’intérieur -->
+                    <TextView
+                        android:id="@+id/tache9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✓ Acheter du pain"
+                        android:textColor="#2C3E50"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tache10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="☐ Nettoyer la maison"
+                        android:textColor="#2C3E50"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/tache9"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/labelAnnee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tâches de l'année"
+                    android:textStyle="bold"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    android:background="@drawable/bg_label_tag"
+                    android:backgroundTint="#82E0AA"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="5dp"
+                    android:layout_gravity="top|start"
+                    android:layout_marginStart="10dp" />
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
