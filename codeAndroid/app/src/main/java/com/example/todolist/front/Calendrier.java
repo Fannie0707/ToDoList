@@ -1,25 +1,31 @@
 package com.example.todolist.front;
 
-import android.os.Bundle; // Cet import manquait
+import android.os.Bundle;
 import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+import com.applandeo.materialcalendarview.CalendarDay;
+import com.applandeo.materialcalendarview.CalendarView;
+import com.example.todolist.R;
+import com.google.android.material.datepicker.DayViewDecorator;
+
+import java.util.Calendar;
 
 public class Calendrier extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { // Bundle était manquant
-        super.onCreate(savedInstanceState); // Appel au parent obligatoire
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.page_principale);
 
-        MaterialCalendarView calendarView = findViewById(R.id.calendarView);
+        Calendar calendar = Calendar.getInstance();
 
-        // Style
-        calendarView.setDateTextAppearance(R.style.CalendarDateStyle);
+        CalendarView calendarView = findViewById(R.id.calendarView);
+    }
+}
+
+// Style
+        /* calendarView.setDateTextAppearance(R.style.CalendarDateStyle);
         calendarView.setHeaderTextAppearance(R.style.CalendarHeaderStyle);
 
         // Décorateur du jour actuel
@@ -41,5 +47,4 @@ public class Calendrier extends AppCompatActivity {
         public void decorate(DayViewFacade view) {
             view.addSpan(new DotSpan(8, Color.parseColor("#FFB6C1")));
         }
-    }
-}
+    }*/
