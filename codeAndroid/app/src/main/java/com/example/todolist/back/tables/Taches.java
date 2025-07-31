@@ -14,21 +14,25 @@ public class Taches extends Entite {
     private Integer parent;
     private boolean repetition;
     private String statut;
-    public final static String nomTable = "Taches";
+    private String urgence;
+    private String type;
+    private Utilisateurs utilisateur;
+    private Categories categorie;
+    public final static String nomTable = "Tache";
     public final static String[] colonne = new String[]{"id","created_at","nom","parent","repetition","statut"};
-    public Taches(boolean repetition, String created_at, String nom, int parent){
+    public Taches(boolean repetition, String nom, int parent, Utilisateurs utilisateur){
         this.repetition = repetition;
         this.parent = parent;
-        this.statut = "Pas commencé";
-        this.created_at = created_at;
+        this.statut = "Pas commence";
         this.nom = nom;
+        this.utilisateur = utilisateur;
 
     }
-    public Taches(boolean repetition, String created_at, String nom){
+    public Taches(boolean repetition, String nom, Utilisateurs utilisateur){
         this.repetition = repetition;
-        this.parent = null;
-        this.statut = "Pas commencé";
-        this.created_at = created_at;
+        this.parent = 0;
+        this.statut = "Pas commence";
+        this.utilisateur = utilisateur;
         this.nom = nom;
     }
 
@@ -83,13 +87,24 @@ public class Taches extends Entite {
     @Override
     public Map<String, String> convertionMap() {
         Map<String,String> m = new HashMap<>();
-        m.put("id", Integer.toString(id));
-        m.put("created_at",created_at);
+        m.put("utilisateur", "1");
+        if (categorie != null){
+            m.put("categorie",Integer.toString(this.categorie.getId()));
+        }
+        if (parent != null){
+            m.put("parent",Integer.toString(parent));
+        }
         m.put("nom",nom);
-        m.put("parent",Integer.toString(parent));
         m.put("repetition",Boolean.toString(repetition));
-        m.put("statut",statut);
-
+        if (statut != null){
+            m.put("statut",statut);
+        }
+        if (this.urgence != null){
+            m.put("urgence",this.urgence);
+        }
+        if (this.type != null){
+            m.put("type",this.type);
+        }
         return m;
     }
 }

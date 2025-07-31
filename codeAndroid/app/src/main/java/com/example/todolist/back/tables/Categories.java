@@ -55,8 +55,6 @@ public class Categories extends Entite {
     @Override
     public Map<String, String> convertionMap() {
         Map<String,String> m = new HashMap<>();
-        m.put("id", Integer.toString(id));
-        m.put("created_at",created_at);
         m.put("nom",nom);
         m.put("couleur",couleur);
 

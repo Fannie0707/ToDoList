@@ -29,8 +29,7 @@ public class Utilisateurs extends Entite {
     private String mdp;
     public static final String nomTable = "Utilisateurs";
     public static final String[] colonne =  new String[]{"id", "created_at","nom", "mdp"};
-    public Utilisateurs(int id, String created_at, String nom, String mdp) {
-        this.id = id;
+    public Utilisateurs(String created_at, String nom, String mdp) {
         this.created_at = created_at;
         this.nom = nom;
         this.mdp = mdp;
@@ -44,7 +43,6 @@ public class Utilisateurs extends Entite {
     @Override
     public Map<String,String> convertionMap() {
         Map<String, String> m = new HashMap<>();
-        m.put("created_at", created_at);
         m.put("nom",nom);
         m.put("mdp",mdp);
         return m;
