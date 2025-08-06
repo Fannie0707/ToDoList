@@ -6,14 +6,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
 import com.example.todolist.back.Entite;
+import com.example.todolist.back.tables.Categories;
+import com.example.todolist.back.tables.Taches;
+import com.example.todolist.back.tables.Utilisateurs;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.CountDownLatch;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -26,10 +32,29 @@ import okhttp3.Response;
 
 public class SupabaseService {
 
+    public static class RequestCallback {
+        public SupabaseCallback callback;
+        public Request request;
+        public RequestCallback(Request request, SupabaseCallback callback){
+            this.request = request;
+            this.callback = callback;
+        }
+    }
+
     private static final String SUPABASE_URL = "https://clibtdmmtppmefgurknv.supabase.co";
     private static final String API_KEY = "sb_publishable_UQe7gN2ojGRyxFfFuRv1sQ_0oL730XD";
     private static final OkHttpClient client = new OkHttpClient();
-
+    private final Queue<RequestCallback> request_queue = new LinkedList<>();
+    public void launch(){
+        if (request_queue.isEmpty()){
+            return;
+        }
+        RequestCallback entry = request_queue.poll();
+        if (entry == null){
+            return;
+        }
+        envoieRequete(entry.request, entry.callback);
+    }
     private void envoieRequete(Request request, SupabaseCallback callback){
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -51,6 +76,7 @@ public class SupabaseService {
                         return;
                     }
                     callback.onSuccess(json);
+                    launch();
                 } else {
                     callback.onError(new Exception("HTTP error " + response.code()));
                 }
@@ -74,8 +100,8 @@ public class SupabaseService {
                 .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Accept", "application/json")
                 .build();
-        envoieRequete(request, callback);
-
+        RequestCallback entry = new RequestCallback(request, callback);
+        request_queue.add(entry);
     }
 
     public void insererDonne(String nomTable, Entite entite, SupabaseCallback callback) {
@@ -105,7 +131,8 @@ public class SupabaseService {
                 .addHeader("Content-Type", "application/json")
                 .addHeader("Prefer", "return=representation")
                 .build();
-        envoieRequete(request, callback);
+        RequestCallback entry = new RequestCallback(request, callback);
+        request_queue.add(entry);
     }
 
     public void supprimerDonne(String nomTable, Parametre[] parametres, SupabaseCallback callback){
@@ -125,9 +152,127 @@ public class SupabaseService {
                 .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Accept", "application/json")
                 .build();
-        envoieRequete(request, callback);
+        RequestCallback entry = new RequestCallback(request, callback);
+        request_queue.add(entry);
     }
 
+    public SupabaseCallback resultat(CountDownLatch latch){
+        return new SupabaseCallback() {
+            @Override
+            public void onSuccess(String json) {
+                System.out.println(json);
+                latch.countDown();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println(e.getMessage());
+                latch.countDown();
+            }
+        };
+    }
+
+    public SupabaseCallback recuperationUtilisateurs(Utilisateurs utilisateur_attendu, CountDownLatch retrieveLatch){
+        return new SupabaseCallback() {
+            @Override
+            public void onSuccess(String json) {
+                System.out.println(json);
+                try {
+                    JSONArray jsonArray = new JSONArray(json);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String createdAt = jsonObject.getString("created_at");
+                    String nom = jsonObject.getString("nom");
+                    String mdp = jsonObject.getString("mdp");
+                    String id = jsonObject.getString("id");
+                    utilisateur_attendu.setId(id);
+                    utilisateur_attendu.setCreated_at(createdAt);
+                    utilisateur_attendu.setNom(nom);
+                    utilisateur_attendu.setMdp(mdp);
+                }catch (JSONException e){
+                    System.out.println(e.getMessage());
+                }
+                finally {
+                    retrieveLatch.countDown();
+                }
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println(e.getMessage());
+                retrieveLatch.countDown();
+            }
+        };
+    }
+    public SupabaseCallback recuperationCategorie(Categories cat, CountDownLatch retrieveLatch){
+        return new SupabaseCallback() {
+            @Override
+            public void onSuccess(String json) {
+                System.out.println(json);
+                try {
+                    JSONArray jsonArray = new JSONArray(json);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String createdAt = jsonObject.getString("created_at");
+                    String nom = jsonObject.getString("nom");
+                    String couleur = jsonObject.getString("couleur");
+                    String id = jsonObject.getString("id");
+                    cat.setId(id);
+                    cat.setCreated_at(createdAt);
+                    cat.setNom(nom);
+                    cat.setCouleur(couleur);
+                }catch (JSONException e){
+                    System.out.println(e.getMessage());
+                }
+                retrieveLatch.countDown();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println(e.getMessage());
+                retrieveLatch.countDown();
+            }
+        };
+    }
+    public SupabaseCallback recuperationTache(Taches tache, CountDownLatch retrieveLatch){
+        return new SupabaseCallback() {
+            @Override
+            public void onSuccess(String json) {
+                System.out.println(json);
+                try {
+                    JSONArray jsonArray = new JSONArray(json);
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    String createdAt = jsonObject.getString("created_at");
+                    String nom = jsonObject.getString("nom");
+                    String parent = jsonObject.getString("parent");
+                    String repetition = jsonObject.getString("repetition");
+                    String type = jsonObject.getString("type");
+                    String statut = jsonObject.getString("statut");
+                    String urgence = jsonObject.getString("urgence");
+                    String id = jsonObject.getString("id");
+                    tache.setId(id);
+                    tache.setCreated_at(createdAt);
+                    tache.setNom(nom);
+                    if (parent.equals("null")){
+                        tache.setParent(null);
+                    }else{
+                        tache.setParent(parent);
+                    }
+                    tache.setStatut(statut);
+                    tache.setType(type);
+                    tache.setRepetition(repetition.equals("1"));
+                    tache.setUrgence(urgence);
+                }catch (JSONException e){
+                    System.out.println(e.getMessage());
+                }
+                retrieveLatch.countDown();
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println(e.getMessage());
+                retrieveLatch.countDown();
+            }
+        };
+    }
     public SupabaseCallback rechercheUtilisateurs(TextView v){
         return new SupabaseCallback() {
             @Override
@@ -147,4 +292,3 @@ public class SupabaseService {
         };
     }
 }
-

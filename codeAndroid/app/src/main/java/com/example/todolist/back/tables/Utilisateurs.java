@@ -4,11 +4,12 @@ import com.example.todolist.back.Entite;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Utilisateurs extends Entite {
-    private int id;
+    private String id;
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,11 +35,27 @@ public class Utilisateurs extends Entite {
         this.nom = nom;
         this.mdp = mdp;
     }
+    public Utilisateurs(String nom, String mdp) {
+        this.nom = nom;
+        this.mdp = mdp;
+    }
 
-    public int getId() { return id; }
+    public String getId() { return id; }
     public String getCreated_at() { return created_at; }
     public String getNom() { return nom; }
     public String getMdp() { return mdp; }
+
+    @Override
+    public boolean equals(Object u){
+        if (u == null||u.getClass() != this.getClass()){
+            return false;
+        }
+        if (Objects.equals(((Utilisateurs) u).getNom(), this.getNom()) && Objects.equals(((Utilisateurs) u).getMdp(), this.getMdp())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Override
     public Map<String,String> convertionMap() {

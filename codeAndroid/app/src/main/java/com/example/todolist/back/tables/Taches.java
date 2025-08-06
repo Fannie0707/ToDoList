@@ -5,14 +5,15 @@ import com.example.todolist.back.Entite;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Taches extends Entite {
 
-    private int id;
+    private String id;
     private String created_at;
     private String nom;
-    private Integer parent;
-    private boolean repetition;
+    private String parent;
+    private boolean repetition = false;
     private String statut;
     private String urgence;
     private String type;
@@ -20,27 +21,25 @@ public class Taches extends Entite {
     private Categories categorie;
     public final static String nomTable = "Tache";
     public final static String[] colonne = new String[]{"id","created_at","nom","parent","repetition","statut"};
-    public Taches(boolean repetition, String nom, int parent, Utilisateurs utilisateur){
-        this.repetition = repetition;
-        this.parent = parent;
-        this.statut = "Pas commence";
-        this.nom = nom;
-        this.utilisateur = utilisateur;
 
-    }
-    public Taches(boolean repetition, String nom, Utilisateurs utilisateur){
-        this.repetition = repetition;
-        this.parent = 0;
-        this.statut = "Pas commence";
+    public Taches(String nom, Utilisateurs utilisateur){
         this.utilisateur = utilisateur;
         this.nom = nom;
+        this.statut = "pas commence";
+        this.urgence = "si possible";
+        this.type = "journaliere";
+
+    }
+    public Taches(){
+        this.utilisateur = null;
+        this.nom = null;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,11 +59,11 @@ public class Taches extends Entite {
         this.nom = nom;
     }
 
-    public int getParent() {
+    public String getParent() {
         return parent;
     }
 
-    public void setParent(int parent) {
+    public void setParent(String parent) {
         this.parent = parent;
     }
 
@@ -84,18 +83,36 @@ public class Taches extends Entite {
         this.statut = statut;
     }
 
+    public void setUtilisateur(Utilisateurs utilisateur){
+        this.utilisateur = utilisateur;
+    }
+
+    @Override
+    public boolean equals(Object t){
+        if (t == null||t.getClass() != this.getClass()){
+            return false;
+        }
+        return Objects.equals(((Taches) t).getNom(), this.getNom()) &&
+                Objects.equals(((Taches) t).getParent(), this.getParent()) &&
+                Objects.equals(((Taches) t).getStatut(), this.getStatut()) &&
+                Objects.equals(((Taches) t).isRepetition(), this.isRepetition()) &&
+                Objects.equals(((Taches) t).getType(), this.getType()) &&
+                Objects.equals(((Taches) t).getUrgence(), this.getUrgence());
+    }
+
     @Override
     public Map<String, String> convertionMap() {
         Map<String,String> m = new HashMap<>();
-        m.put("utilisateur", "1");
-        if (categorie != null){
-            m.put("categorie",Integer.toString(this.categorie.getId()));
-        }
-        if (parent != null){
-            m.put("parent",Integer.toString(parent));
-        }
+        m.put("utilisateur", utilisateur.getId());
         m.put("nom",nom);
         m.put("repetition",Boolean.toString(repetition));
+        if (categorie != null){
+            m.put("categorie",this.categorie.getId());
+        }
+        if (parent != null){
+            m.put("parent",parent);
+        }
+
         if (statut != null){
             m.put("statut",statut);
         }
@@ -106,5 +123,21 @@ public class Taches extends Entite {
             m.put("type",this.type);
         }
         return m;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void setUrgence(String urgence) {
+        this.urgence = urgence;
+    }
+
+    public String getUrgence(){
+        return this.urgence;
     }
 }
